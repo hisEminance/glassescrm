@@ -1,9 +1,12 @@
 package com.example.glasses.controllers;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-public class DetailsController {
+
+@Controller
+public class ProductDetailsController {
     @GetMapping("/details")
 
 

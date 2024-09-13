@@ -1,13 +1,16 @@
 package com.example.glasses.controllers;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-public class CashController {
 
-    @GetMapping("/money")
+@Controller
+public class FinanceController {
+
+    @GetMapping("/finances")
     public String home(Model model) {
-        return "money";
+        return "finances";
     }
 
 }
