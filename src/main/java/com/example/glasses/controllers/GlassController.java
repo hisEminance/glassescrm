@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/glasses")
+@CrossOrigin(origins = "*")
 public class GlassController {
 
     private final GlassService glassService;
@@ -26,7 +27,7 @@ public class GlassController {
         return glassService.findAll();
     }
 
-    // Отримати модель окулярів за ID
+
     @GetMapping("/{id}")
     public ResponseEntity<Glass> getGlassById(@PathVariable Long id) {
         Optional<Glass> glass = glassService.findById(id);
@@ -36,10 +37,11 @@ public class GlassController {
 
     @PostMapping
     public Glass createGlass(@RequestBody Glass glass) {
+        System.out.println("Запит на додавання: " + glass);
         return glassService.save(glass);
     }
 
-    // Оновити існуючу модель окулярів
+
     @PutMapping("/{id}")
     public ResponseEntity<Glass> updateGlass(@PathVariable Long id, @RequestBody Glass updatedGlass) {
         Optional<Glass> optionalGlass = glassService.findById(id);

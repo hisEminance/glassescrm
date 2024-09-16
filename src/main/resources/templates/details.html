@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>CRM</title>
+    <title>Детальна інформація про товар</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/styles.css">
@@ -11,27 +11,119 @@
 
 <div class="container main-content">
     <div class="jumbotron">
-        <h1 class="display-4">Вибери модель окулярів:</h1>
-        <p class="lead">Хз</p>
+        <h1 class="display-4">Детальна інформація про окуляри</h1>
+        <p class="lead">Список усіх доступних моделей</p>
         <hr class="my-4">
-        <p>А тут якась інструкція</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/details" role="button"> Детальна інфа про товар</a>
-        </p>
+
+        <!-- Таблиця для виводу даних -->
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Назва моделі</th>
+                <th>Ціна при закупці</th>
+                <th>Ціна при продажі</th>
+                <th>Кількість проданих одиниць</th>
+                <th>Кількість на складі</th>
+                <th>Зображення</th>
+            </tr>
+            </thead>
+            <tbody id="glasses-list"></tbody>
+        </table>
+
+        <!-- Форма для додавання нових моделей -->
+        <h2>Додати нову модель окулярів</h2>
+        <form id="add-glass-form">
+            <div class="mb-3">
+                <label for="modelName" class="form-label">Назва моделі</label>
+                <input type="text" class="form-control" id="modelName" required>
+            </div>
+            <div class="mb-3">
+                <label for="purchasePrice" class="form-label">Ціна при закупці</label>
+                <input type="number" class="form-control" id="purchasePrice" required>
+            </div>
+            <div class="mb-3">
+                <label for="salePrice" class="form-label">Ціна при продажі</label>
+                <input type="number" class="form-control" id="salePrice" required>
+            </div>
+            <div class="mb-3">
+                <label for="stockQuantity" class="form-label">Кількість на складі</label>
+                <input type="number" class="form-control" id="stockQuantity" required>
+            </div>
+            <div class="mb-3">
+                <label for="soldQuantity" class="form-label">Кількість проданих одиниць</label>
+                <input type="number" class="form-control" id="soldQuantity" required>
+            </div>
+            <div class="mb-3">
+                <label for="imageUrl" class="form-label">Посилання на зображення</label>
+                <input type="text" class="form-control" id="imageUrl" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Додати</button>
+        </form>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
 <script>
     fetch('navbar.html')
         .then(response => response.text())
         .then(html => {
             document.getElementById('navbar-placeholder').innerHTML = html;
-        })
-        .catch(err => {
-            console.error('Помилка при завантаженні навбару:', err);
         });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Виведення існуючих моделей окулярів
+        function loadGlasses() {
+            fetch('/api/glasses')
+                .then(response => response.json())
+                .then(glasses => {
+                    const tableBody = document.getElementById("glasses-list");
+                    tableBody.innerHTML = "";
+                    glasses.forEach(glass => {
+                        const row = `
+                                <tr>
+                                    <td>${glass.modelName}</td>
+                                    <td>${glass.purchasePrice}</td>
+                                    <td>${glass.salePrice}</td>
+                                    <td>${glass.soldQuantity}</td>
+                                    <td>${glass.stockQuantity}</td>
+                                    <td><img src="${glass.imageUrl}" alt="${glass.modelName}" width="100"></td>
+                                </tr>
+                            `;
+                        tableBody.innerHTML += row;
+                    });
+                });
+        }
+
+        loadGlasses();
+
+
+        document.getElementById("add-glass-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const glassData = {
+                modelName: document.getElementById("modelName").value,
+                purchasePrice: document.getElementById("purchasePrice").value,
+                salePrice: document.getElementById("salePrice").value,
+                stockQuantity: document.getElementById("stockQuantity").value,
+                soldQuantity: document.getElementById("soldQuantity").value,
+                imageUrl: document.getElementById("imageUrl").value
+            };
+
+            fetch("/api/glasses", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(glassData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    loadGlasses();
+                    document.getElementById("add-glass-form").reset();
+                })
+                .catch(error => console.error("Помилка при додаванні моделі:", error));
+        });
+    });
 </script>
 </body>
 </html>
