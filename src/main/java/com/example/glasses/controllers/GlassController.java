@@ -1,9 +1,12 @@
 package com.example.glasses.controllers;
 
 
+import com.example.glasses.dto.GlassDto;
 import com.example.glasses.entities.Glass;
 import com.example.glasses.services.GlassService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,4 +72,14 @@ public class GlassController {
             return ResponseEntity.notFound().build();
         }
    }
+    @PutMapping("/{id}/sold")
+    public ResponseEntity<?> updateSoldQuantity(@PathVariable Long id, @RequestBody GlassDto dto) {
+        try {
+            glassService.changeSoldQuantity(id, dto.getSoldQuantity(), dto.getOldSoldQuantity());
+            Glass updatedGlass = glassService.findById(id).orElseThrow(EntityNotFoundException::new);
+            return ResponseEntity.ok(updatedGlass);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 }

@@ -32,10 +32,14 @@ public class Glass {
 
     @Column(name = "markup_percentage")
     private Double markupPercentage; // відсоток націнки
+    @Column(name = "ideal_stock")
+    private Integer idealStock;
+
+
     public Glass() {
     }
 
-    public Glass(String modelName, BigDecimal purchasePrice, BigDecimal salePrice, int stockQuantity, int soldQuantity, String imageUrl, Double markupPercentage) {
+    public Glass(String modelName, BigDecimal purchasePrice, BigDecimal salePrice, int stockQuantity, int soldQuantity, String imageUrl, Double markupPercentage, Integer idealStock) {
         this.modelName = modelName;
         this.purchasePrice = purchasePrice;
         this.salePrice = salePrice;
@@ -43,6 +47,7 @@ public class Glass {
         this.soldQuantity = soldQuantity;
         this.imageUrl = imageUrl;
         this.markupPercentage = markupPercentage;
+        this.idealStock = (idealStock != null) ? idealStock : 0;
     }
 
 
@@ -52,6 +57,13 @@ public class Glass {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    public Integer getIdealStock() {
+        return idealStock != null ? idealStock : 0;
+    }
+
+    public void setIdealStock(Integer idealStock) {
+        this.idealStock = idealStock;
     }
 
     public String getModelName() {
