@@ -108,16 +108,18 @@
             const selectedModel = modelsData.find(model => model.id == selectedModelId);
 
             if (selectedModel) {
-                const restockAmount = (selectedModel.stockQuantity - selectedModel.soldQuantity) * selectedModel.purchasePrice;
+                const restockAmount = (selectedModel.idealStock - selectedModel.soldQuantity) * selectedModel.purchasePrice;
                 document.getElementById("singleModelAmount").textContent = restockAmount > 0 ? restockAmount.toFixed(2) : "Запас повний";
             }
         });
 
+
+        // Обчислення суми для загального поповнення балансу
         document.getElementById("calculateTotalAmount").addEventListener("click", function () {
             let totalAmount = 0;
 
             modelsData.forEach(model => {
-                const restockAmount = (model.soldQuantity - model.stockQuantity) * model.purchasePrice;
+                const restockAmount = (model.idealStock - model.soldQuantity) * model.purchasePrice;
                 if (restockAmount > 0) {
                     totalAmount += restockAmount;
                 }

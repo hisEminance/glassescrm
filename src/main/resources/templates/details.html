@@ -190,7 +190,7 @@
 
         window.deleteGlass = function (id) {
             if (confirm("Ви впевнені, що хочете видалити цей запис?")) {
-                fetch(`/api/glasses/${id}`, { // Тут мають бути зворотні лапки
+                fetch(`/api/glasses/${id}`, { // Тут мають бути зворотні лапки :)
                     method: "DELETE"
                 })
                     .then(() => {

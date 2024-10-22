@@ -77,6 +77,7 @@ public class GlassService {
     public void changeSoldQuantity(Long id,  int newSoldQuantity, int oldSoldQuantity) {
         System.out.println("Old sold quantity: " + oldSoldQuantity);
         System.out.println("New sold quantity: " + newSoldQuantity);
+
         int difference = newSoldQuantity - oldSoldQuantity;
         System.out.println("Difference: " + difference);
         if (difference != 0) {
