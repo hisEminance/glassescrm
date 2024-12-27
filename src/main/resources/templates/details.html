@@ -120,10 +120,8 @@
             };
 
             if (glassId) {
-                // Якщо в нас є glassId, це редагування
                 updateGlass(glassId, glassData);
             } else {
-                // Якщо нема glassId, це додавання нового запису
                 addNewGlass(glassData);
             }
         });
@@ -146,32 +144,37 @@
         }
 
         function updateGlass(id, glassData) {
-            const oldSoldQuantity = document.getElementById("oldSoldQuantity").value; // Додаємо старе значення
-            glassData.oldSoldQuantity = parseInt(oldSoldQuantity, 10); // Перетворюємо на число і додаємо до об'єкта даних
+            const oldSoldQuantity = parseInt(document.getElementById("oldSoldQuantity").value, 10); // Додаємо старе значення
+            glassData.oldSoldQuantity = oldSoldQuantity;
 
-            fetch(`/api/glasses/${id}`, { // Тут мають бути зворотні лапки
+            fetch(`/api/glasses/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(glassData)
             })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to update glass model");
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    loadGlasses();
+                    loadGlasses(); // Оновлюємо всю таблицю
                     document.getElementById("add-glass-form").reset(); // Очищення форми
                     document.getElementById("glassId").value = ""; // Очищаємо ID після редагування
 
                     const newSoldQuantity = glassData.soldQuantity;
                     if (newSoldQuantity) {
-                        updateSoldQuantity(id, newSoldQuantity); // Викликаємо окремий метод для оновлення проданої кількості
+                        updateSoldQuantity(id, newSoldQuantity, oldSoldQuantity); // Викликаємо оновлення кількості
                     }
                 })
                 .catch(error => console.error("Помилка при оновленні моделі:", error));
         }
 
         window.editGlass = function (id) {
-            fetch(`/api/glasses/${id}`) // Тут мають бути зворотні лапки
+            fetch(`/api/glasses/${id}`)
                 .then(response => response.json())
                 .then(glass => {
                     document.getElementById("glassId").value = glass.id;

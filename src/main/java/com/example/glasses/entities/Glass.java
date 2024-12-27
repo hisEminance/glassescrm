@@ -3,6 +3,7 @@ package com.example.glasses.entities;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "glasses")
@@ -34,12 +35,14 @@ public class Glass {
     private Double markupPercentage; // відсоток націнки
     @Column(name = "ideal_stock")
     private Integer idealStock;
+    @Column(name = "dateOfSale")
+    private LocalDate dateOfSale;
 
 
     public Glass() {
     }
 
-    public Glass(String modelName, BigDecimal purchasePrice, BigDecimal salePrice, int stockQuantity, int soldQuantity, String imageUrl, Double markupPercentage, Integer idealStock) {
+    public Glass(String modelName, BigDecimal purchasePrice, BigDecimal salePrice, int stockQuantity, int soldQuantity, String imageUrl, Double markupPercentage, Integer idealStock, LocalDate dateOfSale) {
         this.modelName = modelName;
         this.purchasePrice = purchasePrice;
         this.salePrice = salePrice;
@@ -48,6 +51,7 @@ public class Glass {
         this.imageUrl = imageUrl;
         this.markupPercentage = markupPercentage;
         this.idealStock = (idealStock != null) ? idealStock : 0;
+        this.dateOfSale = dateOfSale;
     }
 
 
@@ -128,5 +132,13 @@ public class Glass {
 
     public BigDecimal getReplenishmentCost() {
         return purchasePrice.multiply(BigDecimal.valueOf(stockQuantity));
+    }
+
+    public LocalDate getDateOfSale() {
+        return dateOfSale;
+    }
+
+    public void setDateOfSale(LocalDate dateOfSale) {
+        this.dateOfSale = dateOfSale;
     }
 }

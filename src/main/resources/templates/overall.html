@@ -30,7 +30,7 @@
             <tr>
                 <th>Назва моделі</th>
                 <th>Кількість на складі</th>
-                <th>Загальний дохід</th>
+                <th>Чистий дохід</th>
                 <th>Витрати на дозамовлення</th>
             </tr>
             </thead>
@@ -108,7 +108,9 @@
             const selectedModel = modelsData.find(model => model.id == selectedModelId);
 
             if (selectedModel) {
-                const restockAmount = (selectedModel.idealStock - selectedModel.soldQuantity) * selectedModel.purchasePrice;
+                const neededStock = selectedModel.idealStock - selectedModel.stockQuantity;
+                const restockAmount = neededStock > 0 ? neededStock * selectedModel.purchasePrice : 0;
+
                 document.getElementById("singleModelAmount").textContent = restockAmount > 0 ? restockAmount.toFixed(2) : "Запас повний";
             }
         });
@@ -119,9 +121,9 @@
             let totalAmount = 0;
 
             modelsData.forEach(model => {
-                const restockAmount = (model.idealStock - model.soldQuantity) * model.purchasePrice;
-                if (restockAmount > 0) {
-                    totalAmount += restockAmount;
+                const neededStock = model.idealStock - model.stockQuantity; // Різниця між ідеальним і поточним запасом
+                if (neededStock > 0) {
+                    totalAmount += neededStock * model.purchasePrice;
                 }
             });
 

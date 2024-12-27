@@ -3,6 +3,7 @@ package com.example.glasses.controllers;
 
 import com.example.glasses.dto.GlassDto;
 import com.example.glasses.entities.Glass;
+import com.example.glasses.services.FinanceService;
 import com.example.glasses.services.GlassService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,10 +21,12 @@ import java.util.Optional;
 public class GlassController {
 
     private final GlassService glassService;
+    private final FinanceService financeService;
 
     @Autowired
-    public GlassController(GlassService glassService) {
+    public GlassController(GlassService glassService, FinanceService financeService) {
         this.glassService = glassService;
+        this.financeService = financeService;
     }
 
     @GetMapping
@@ -40,7 +44,12 @@ public class GlassController {
 
     @PostMapping
     public Glass createGlass(@RequestBody Glass glass) {
+        //цю тєму точно треба винести кудась за СОЛІД-ом, супер впдлу і горять сроки, потім всьо рефакторну
+        if (glass.getDateOfSale() == null) {
+            glass.setDateOfSale(LocalDate.now());
+        }
         System.out.println("Запит на додавання: " + glass);
+        System.out.println("Створення/Оновлення Glass: " + glass);
         return glassService.save(glass);
     }
 
@@ -57,6 +66,7 @@ public class GlassController {
             glass.setSoldQuantity(updatedGlass.getSoldQuantity());
             glass.setImageUrl(updatedGlass.getImageUrl());
             glass.setMarkupPercentage(updatedGlass.getMarkupPercentage());
+            System.out.println("Створення/Оновлення Glass: " + glass);
             return ResponseEntity.ok(glassService.save(glass));
         } else {
             return ResponseEntity.notFound().build();
@@ -74,12 +84,29 @@ public class GlassController {
    }
     @PutMapping("/{id}/sold")
     public ResponseEntity<?> updateSoldQuantity(@PathVariable Long id, @RequestBody GlassDto dto) {
-        try {
-            glassService.changeSoldQuantity(id, dto.getSoldQuantity(), dto.getOldSoldQuantity());
-            Glass updatedGlass = glassService.findById(id).orElseThrow(EntityNotFoundException::new);
-            return ResponseEntity.ok(updatedGlass);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        Optional<Glass> optionalGlass = glassService.findById(id);
+        if (optionalGlass.isPresent()) {
+            Glass glass = optionalGlass.get();
+
+            int oldSoldQuantity = dto.getOldSoldQuantity();
+            int newSoldQuantity = dto.getSoldQuantity();
+
+            int soldAmount = newSoldQuantity - oldSoldQuantity;
+
+            // Валідація: чи можливо продати вказану кількість
+            if (soldAmount < 0 || glass.getStockQuantity() < soldAmount) {
+                return ResponseEntity.badRequest()
+                        .body("Недостатньо товарів на складі або некоректна кількість проданих одиниць.");
+            }
+
+            // Оновлення полів
+            glass.setSoldQuantity(newSoldQuantity);
+            glass.setStockQuantity(glass.getStockQuantity() - soldAmount);
+            financeService.saveDailyRevenue();
+            glassService.save(glass);
+            return ResponseEntity.ok(glass);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }

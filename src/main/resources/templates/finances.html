@@ -12,12 +12,57 @@
 <div class="container main-content">
     <div class="jumbotron">
         <h1 class="display-4">Обіг грошей</h1>
-        <p class="lead">тут має бути бізнес логіка</p>
+        <p class="lead">Моніторинг доходів та витрат у вашому бізнесі</p>
         <hr class="my-4">
-        <p>А тут якась інструкція</p>
+        <p>Використовуйте цю сторінку для управління фінансами та аналізу доходів.</p>
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/finances" role="button">ДЄНЬГА</a>
+            <a class="btn btn-primary btn-lg" href="/finances" role="button">Переглянути деталі</a>
         </p>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Чистий загальний дохід</div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${netIncome} + ' грн'">0 грн</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-header">Витрати на закупівлю</div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${purchaseExpenses} + ' грн'">0 грн</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Виручка за сьогодні</div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${dailyRevenue} + ' грн'">0 грн</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Виручка за цей місяць</div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${monthlyRevenue} + ' грн'">0 грн</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-header">Виручка за цей рік</div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${yearlyRevenue} + ' грн'">0 грн</h5>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -35,3 +80,6 @@
 </script>
 </body>
 </html>
+
+
+

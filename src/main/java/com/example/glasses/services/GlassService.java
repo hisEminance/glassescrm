@@ -42,6 +42,7 @@ public class GlassService {
         List<GlassDto> result = new ArrayList<>();
 
         for (Glass glass : glasses) {
+
             BigDecimal restockingCost = glass.getPurchasePrice()
                     .multiply(BigDecimal.valueOf(glass.getIdealStock() - glass.getStockQuantity()));
             GlassDto dto = new GlassDto();
@@ -86,6 +87,7 @@ public class GlassService {
             glass.setStockQuantity(glass.getStockQuantity() - difference);
             glassRepository.save(glass);
         }
+
     }
 }
 
