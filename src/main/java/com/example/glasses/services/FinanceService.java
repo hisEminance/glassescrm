@@ -22,7 +22,7 @@ public class FinanceService {
     }
 
     // 1. Чистий дохід (на основі проданих окулярів) хз як працює, думаю некоректно, але вроді відображає чистий дохід,
-    // правда хз нащо я то написав, якщо чистий дохід вже вираховується на іншій сторінці, але по ідеї так треба
+    // правда хз нащо я то написав, якщо чистий дохід вже вираховується на іншій сторінці, але по ідеї так треба (P.S. вони різні)
     public BigDecimal calculateNetIncome(LocalDate from, LocalDate to) {
         return glassRepository.findAll()
                 .stream()
@@ -75,7 +75,7 @@ public class FinanceService {
         return revenueRecordRepository.findByDateBetween(from, to);
     }
 
-    // 5. Порахувати загальну виручку за період (поки не юзаєм)
+    // 5. Порахувати загальну виручку за період (поки не юзаєм, але лишу це тут, вдруг пригодиться колись )
     public BigDecimal calculateTotalRevenue(LocalDate from, LocalDate to) {
         return getRevenueRecords(from, to)
                 .stream()

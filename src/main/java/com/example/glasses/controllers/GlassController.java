@@ -93,13 +93,11 @@ public class GlassController {
 
             int soldAmount = newSoldQuantity - oldSoldQuantity;
 
-            // Валідація: чи можливо продати вказану кількість
+            // Чекінг чи можливо продати вказану кількість
             if (soldAmount < 0 || glass.getStockQuantity() < soldAmount) {
                 return ResponseEntity.badRequest()
                         .body("Недостатньо товарів на складі або некоректна кількість проданих одиниць.");
             }
-
-            // Оновлення полів
             glass.setSoldQuantity(newSoldQuantity);
             glass.setStockQuantity(glass.getStockQuantity() - soldAmount);
             financeService.saveDailyRevenue();

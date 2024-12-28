@@ -19,9 +19,10 @@ public class GlassService {
     private final GlassRepository glassRepository;
 
     @Autowired
-    public GlassService(GlassRepository glassRepository ) {
+    public GlassService(GlassRepository glassRepository) {
         this.glassRepository = glassRepository;
     }
+
     public List<Glass> findAll() {
         return glassRepository.findAll();
     }
@@ -37,6 +38,7 @@ public class GlassService {
     public void deleteById(Long id) {
         glassRepository.deleteById(id);
     }
+
     public List<GlassDto> getOverallGlassData() {
         List<Glass> glasses = glassRepository.findAll();
         List<GlassDto> result = new ArrayList<>();
@@ -58,6 +60,7 @@ public class GlassService {
 
         return result;
     }
+
     public List<GlassDto> getGlassesSortedByStock(boolean ascending) {
         List<GlassDto> overallData = getOverallGlassData();
         if (ascending) {
@@ -73,21 +76,7 @@ public class GlassService {
                 .filter(glass -> glass.getStockQuantity() > 0)
                 .count();
     }
-
-    // піздєц, метод криво працює
-    public void changeSoldQuantity(Long id,  int newSoldQuantity, int oldSoldQuantity) {
-        System.out.println("Old sold quantity: " + oldSoldQuantity);
-        System.out.println("New sold quantity: " + newSoldQuantity);
-
-        int difference = newSoldQuantity - oldSoldQuantity;
-        System.out.println("Difference: " + difference);
-        if (difference != 0) {
-            Glass glass = glassRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Glass not found"));
-            glass.setSoldQuantity(newSoldQuantity);
-            glass.setStockQuantity(glass.getStockQuantity() - difference);
-            glassRepository.save(glass);
-        }
-
-    }
 }
+
+
 
