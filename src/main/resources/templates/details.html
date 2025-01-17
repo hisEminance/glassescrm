@@ -4,67 +4,120 @@
     <title>Детальна інформація про товар</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/details.css">
 </head>
+
 <body class="home-page">
 <div id="navbar-placeholder"></div>
+<div class="header-section">
+    <div class="header-content">
+        <h1 class="page-title">Управління товарами</h1>
+        <p class="page-subtitle">Система обліку та контролю асортименту</p>
+    </div>
+</div>
 
-<div class="container main-content">
-    <div class="jumbotron">
-        <h1 class="display-4">Детальна інформація про окуляри</h1>
-        <p class="lead">Список усіх доступних моделей</p>
-        <hr class="my-4">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Назва моделі</th>
-                <th>Ціна при закупці</th>
-                <th>Ціна при продажі</th>
-                <th>Кількість проданих одиниць</th>
-                <th>Кількість на складі</th>
-                <th>Зображення</th>
-                <th>Дії</th>
-                <th>Фіксоване значення</th>>
-            </tr>
-            </thead>
-            <tbody id="glasses-list"></tbody>
-        </table>
+<div class="main-content">
+    <div class="content-card">
+        <div class="card-header">
+            <i class="bi bi-table"></i>
+            <h2 class="card-title">Список моделей окулярів</h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th><i class="bi bi-eyeglasses me-2"></i>Назва моделі</th>
+                        <th><i class="bi bi-tag me-2"></i>Ціна закупки</th>
+                        <th><i class="bi bi-cash me-2"></i>Ціна продажу</th>
+                        <th><i class="bi bi-graph-up me-2"></i>Продано</th>
+                        <th><i class="bi bi-box me-2"></i>В наявності</th>
+                        <th><i class="bi bi-image me-2"></i>Зображення</th>
+                        <th><i class="bi bi-gear me-2"></i>Дії</th>
+                        <th><i class="bi bi-bookmark-star me-2"></i>Ідеальний запас</th>
+                    </tr>
+                    </thead>
+                    <tbody id="glasses-list"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-        <h2>Додати нову модель окулярів</h2>
-        <form id="add-glass-form">
-            <input type="hidden" id="glassId">
-            <input type="hidden" id="oldSoldQuantity" value="">
+    <div class="content-card">
+        <div class="card-header">
+            <i class="bi bi-plus-circle"></i>
+            <h2 class="card-title">Додати нову модель</h2>
+        </div>
+        <div class="card-body">
+            <form id="add-glass-form">
+                <input type="hidden" id="glassId">
+                <input type="hidden" id="oldSoldQuantity" value="">
 
-            <div class="mb-3">
-                <label for="modelName" class="form-label">Назва моделі</label>
-                <input type="text" class="form-control" id="modelName" required>
-            </div>
-            <div class="mb-3">
-                <label for="purchasePrice" class="form-label">Ціна при закупці</label>
-                <input type="number" class="form-control" id="purchasePrice" required>
-            </div>
-            <div class="mb-3">
-                <label for="salePrice" class="form-label">Ціна при продажі</label>
-                <input type="number" class="form-control" id="salePrice" required>
-            </div>
-            <div class="mb-3">
-                <label for="stockQuantity" class="form-label">Кількість на складі</label>
-                <input type="number" class="form-control" id="stockQuantity" required>
-            </div>
-            <div class="mb-3">
-                <label for="soldQuantity" class="form-label">Кількість проданих одиниць</label>
-                <input type="number" class="form-control" id="soldQuantity" required>
-            </div>
-            <div class="mb-3">
-                <label for="imageUrl" class="form-label">Посилання на зображення</label>
-                <input type="text" class="form-control" id="imageUrl" required>
-            </div>
-            <div class="mb-3">
-                <label for="idealStock" class="form-label">Ідеальний запас</label>
-                <input type="number" class="form-control" id="idealStock" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Додати</button>
-        </form>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="modelName" class="form-label">
+                                <i class="bi bi-pencil"></i>Назва моделі
+                            </label>
+                            <input type="text" class="form-control" id="modelName" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="purchasePrice" class="form-label">
+                                <i class="bi bi-tag"></i>Ціна закупки
+                            </label>
+                            <input type="number" class="form-control" id="purchasePrice" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="salePrice" class="form-label">
+                                <i class="bi bi-cash"></i>Ціна продажу
+                            </label>
+                            <input type="number" class="form-control" id="salePrice" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="stockQuantity" class="form-label">
+                                <i class="bi bi-box"></i>В наявності
+                            </label>
+                            <input type="number" class="form-control" id="stockQuantity" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="soldQuantity" class="form-label">
+                                <i class="bi bi-graph-up"></i>Продано
+                            </label>
+                            <input type="number" class="form-control" id="soldQuantity" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="imageUrl" class="form-label">
+                                <i class="bi bi-image"></i>Зображення
+                            </label>
+                            <input type="text" class="form-control" id="imageUrl" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="idealStock" class="form-label">
+                                <i class="bi bi-star"></i>Ідеальний запас
+                            </label>
+                            <input type="number" class="form-control" id="idealStock" required>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="add-button mt-4">
+                    <i class="bi bi-plus-lg"></i>
+                    Додати модель
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
@@ -85,18 +138,36 @@
                     glasses.forEach(glass => {
                         const row = `
                         <tr>
-                            <td>${glass.modelName}</td>
-                            <td>${glass.purchasePrice}</td>
-                            <td>${glass.salePrice}</td>
-                            <td id="sold-${glass.id}">${glass.soldQuantity}</td> <!-- Додали id -->
-                            <td id="stock-${glass.id}">${glass.stockQuantity}</td> <!-- Додали id -->
-                            <td><img src="${glass.imageUrl}" alt="${glass.modelName}" width="100"></td>
-                            <td>
-                            <button class="btn btn-warning" onclick="editGlass(${glass.id})">Редагувати</button>
-                            <button class="btn btn-danger" onclick="deleteGlass(${glass.id})">Видалити</button>
-                            </td>
-                            <td>${glass.idealStock}</td>
-                        </tr>
+                                    <td class="fw-medium">${glass.modelName}</td>
+                                    <td>${glass.purchasePrice} ₴</td>
+                                    <td>${glass.salePrice} ₴</td>
+                                    <td>
+                                        <span class="stats-badge sold" id="sold-${glass.id}">
+                                            <i class="bi bi-graph-up"></i>${glass.soldQuantity}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="stats-badge in-stock" id="stock-${glass.id}">
+                                            <i class="bi bi-box"></i>${glass.stockQuantity}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <img src="${glass.imageUrl}" alt="${glass.modelName}" class="product-image">
+                                    </td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <button class="action-button edit" onclick="editGlass(${glass.id})" title="Редагувати">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button class="action-button delete" onclick="deleteGlass(${glass.id})" title="Видалити">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="stats-badge">${glass.idealStock}</span>
+                                    </td>
+                                </tr>
                     `;
                         tableBody.innerHTML += row;
                     });
@@ -138,13 +209,13 @@
                 .then(data => {
                     loadGlasses();
                     document.getElementById("add-glass-form").reset();
-                    document.getElementById("glassId").value = ""; // Очищаємо ID після додавання нового запису
+                    document.getElementById("glassId").value = "";
                 })
                 .catch(error => console.error("Помилка при додаванні моделі:", error));
         }
 
         function updateGlass(id, glassData) {
-            const oldSoldQuantity = parseInt(document.getElementById("oldSoldQuantity").value, 10); // Додаємо старе значення
+            const oldSoldQuantity = parseInt(document.getElementById("oldSoldQuantity").value, 10);
             glassData.oldSoldQuantity = oldSoldQuantity;
 
             fetch(`/api/glasses/${id}`, {
@@ -161,13 +232,13 @@
                     return response.json();
                 })
                 .then(data => {
-                    loadGlasses(); // Оновлюємо всю таблицю
-                    document.getElementById("add-glass-form").reset(); // Очищення форми
-                    document.getElementById("glassId").value = ""; // Очищаємо ID після редагування
+                    loadGlasses();
+                    document.getElementById("add-glass-form").reset();
+                    document.getElementById("glassId").value = "";
 
                     const newSoldQuantity = glassData.soldQuantity;
                     if (newSoldQuantity) {
-                        updateSoldQuantity(id, newSoldQuantity, oldSoldQuantity); // Викликаємо оновлення кількості
+                        updateSoldQuantity(id, newSoldQuantity, oldSoldQuantity);
                     }
                 })
                 .catch(error => console.error("Помилка при оновленні моделі:", error));
@@ -193,7 +264,7 @@
 
         window.deleteGlass = function (id) {
             if (confirm("Ви впевнені, що хочете видалити цей запис?")) {
-                fetch(`/api/glasses/${id}`, { // Тут мають бути зворотні лапки :)
+                fetch(`/api/glasses/${id}`, {
                     method: "DELETE"
                 })
                     .then(() => {
@@ -213,10 +284,9 @@
             })
                 .then(response => response.json())
                 .then(updatedGlass => {
-                    // Оновлюємо текст контент полів для stock і sold
                     document.querySelector(`#stock-${glassId}`).textContent = updatedGlass.stockQuantity;
                     document.querySelector(`#sold-${glassId}`).textContent = updatedGlass.soldQuantity;
-                    loadGlasses(); // Оновлення всієї таблиці
+                    loadGlasses();
                 })
                 .catch(error => console.error("Помилка при оновленні кількості проданих/в стоці одиниць:", error));
         }

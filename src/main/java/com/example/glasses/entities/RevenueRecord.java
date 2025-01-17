@@ -18,12 +18,16 @@ public class RevenueRecord {
     @Column(nullable = false)
     private BigDecimal amount;
 
+    @ManyToOne
+    @JoinColumn(name = "glass_id", nullable = false)
+    private Glass glass;
     public RevenueRecord() {
 
     }
-    public RevenueRecord(LocalDate date, BigDecimal amount) {
+    public RevenueRecord(LocalDate date, BigDecimal amount, Glass glass) {
         this.date = date;
         this.amount = amount;
+        this.glass = glass;
     }
 
     public Long getId() {
@@ -49,4 +53,11 @@ public class RevenueRecord {
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
+    public Glass getGlass() {
+        return glass;
+    }
+    public void setGlass(Glass glass) {
+        this.glass = glass;
+    }
 }
+

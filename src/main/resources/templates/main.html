@@ -1,40 +1,128 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>CRM</title>
+    <title>CRM - Головна</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/main.css">
 </head>
-<body class="home-page">
+<body>
 <div id="navbar-placeholder"></div>
 
-<div class="container main-content">
-    <div class="jumbotron">
-        <h1 class="display-4">Привіт!</h1>
-        <p class="lead">Я CRM-система написана під твій малий бізнес криворуким розрабом, який тільтанув.</p>
-        <hr class="my-4">
-        <p>Тут зібрані +- всі ключові функції crud пріложухи, тобто додавання апдейт видалення та зчитування товарів, їх загальний опис, корисні калькуляторні штуки під малий бізнес. Насолоджуйся цим приколом та сподівайся, що все працює.</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/overall" role="button">Загальні інфа про товар</a>
-            <a class="btn btn-primary btn-lg" href="/details" role="button">Детальна інформація про товар</a>
-            <a class="btn btn-primary btn-lg" href="/finances" role="button">Доходи/Витрати</a>
-        </p>
+<div class="welcome-section">
+    <div class="container">
+        <div class="welcome-text">
+            <h1 class="display-4">Ласкаво просимо до CRM-системи, Ростик</h1>
+            <p class="lead mb-0">Управління твоїм бізнесом стане простішим</p>
+        </div>
     </div>
 </div>
 
+<div class="container py-4">
+    <div class="row g-4">
+        <div class="col-md-4" style="animation-delay: 0.2s">
+            <div class="quick-access-card h-100">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-box quick-access-icon"></i>
+                        <div class="ms-3">
+                            <h3 class="h5 mb-1">Деталі товарів</h3>
+                            <p class="card-text text-muted mb-0">
+                                Управління моделями та запасами
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="/details" class="action-link">
+                        Перейти до деталей
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4" style="animation-delay: 0.4s">
+            <div class="quick-access-card h-100">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-grid quick-access-icon"></i>
+                        <div class="ms-3">
+                            <h3 class="h5 mb-1">Загальна інформація</h3>
+                            <p class="card-text text-muted mb-0">
+                                Огляд всіх моделей та статистика
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="/overall" class="action-link">
+                        Переглянути інформацію
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4" style="animation-delay: 0.6s">
+            <div class="quick-access-card h-100">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-bank2 quick-access-icon"></i>
+                        <div class="ms-3">
+                            <h3 class="h5 mb-1">Фінанси</h3>
+                            <p class="card-text text-muted mb-0">
+                                Доходи, витрати та аналітика
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="/finances" class="action-link">
+                        Перейти до фінансів
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" style="animation-delay: 0.6s">
+            <div class="quick-access-card h-100">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-bar-chart-line quick-access-icon"></i>
+                        <div class="ms-3">
+                            <h3 class="h5 mb-1">Аналітика</h3>
+                            <p class="card-text text-muted mb-0">
+                                Діграми, графіки, статистика
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="/analytics" class="action-link">
+                        Перейти до графіків
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container py-4">
+    <div class="quote-section text-center mb-5">
+        <p class="quote-text">
+            «Si caecum quaereretur quid esset visus, responderet se esse caecitatem» — Hērákleitos
+        </p>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
-<script>
-    fetch('navbar.html')
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('navbar-placeholder').innerHTML = html;
-        })
-        .catch(err => {
-            console.error('Помилка при завантаженні навбару:', err);
-        });
-</script>
+
 
 </body>
 </html>

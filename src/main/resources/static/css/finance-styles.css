@@ -1,0 +1,151 @@
+.finance-dashboard {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* Оновлений стиль для header */
+.dashboard-header {
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    padding: 2.5rem 0;
+    margin-bottom: 2rem;
+    width: 100%;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dashboard-header .container {
+    position: relative;
+}
+
+.dashboard-header h1 {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-header p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0;
+}
+
+.dashboard-header .text-muted {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin-right: 1rem;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: #6c757d;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.stat-footer {
+    font-size: 0.9rem;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Кольорові схеми для карток */
+.income {
+    background: linear-gradient(145deg, #ffffff, #f8fff9);
+}
+
+.income .stat-icon {
+    background-color: #ebf9f0;
+    color: #28a745;
+}
+
+.expenses {
+    background: linear-gradient(145deg, #ffffff, #fff8f8);
+}
+
+.expenses .stat-icon {
+    background-color: #feebeb;
+    color: #dc3545;
+}
+
+.daily {
+    background: linear-gradient(145deg, #ffffff, #f8f9ff);
+}
+
+.daily .stat-icon {
+    background-color: #ebf1ff;
+    color: #0d6efd;
+}
+
+.monthly {
+    background: linear-gradient(145deg, #ffffff, #f8fdff);
+}
+
+.monthly .stat-icon {
+    background-color: #ebf8ff;
+    color: #0dcaf0;
+}
+
+.yearly {
+    background: linear-gradient(145deg, #ffffff, #fffdf8);
+}
+
+.yearly .stat-icon {
+    background-color: #fff8eb;
+    color: #ffc107;
+}
+
+@media (max-width: 768px) {
+    .stat-card {
+        padding: 1rem;
+    }
+
+    .stat-icon {
+        font-size: 2rem;
+        width: 50px;
+        height: 50px;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+}

@@ -1,6 +1,7 @@
 package com.example.glasses.services;
 
 
+import com.example.glasses.entities.Glass;
 import com.example.glasses.entities.RevenueRecord;
 import com.example.glasses.repositories.GlassRepository;
 import com.example.glasses.repositories.RevenueRecordRepository;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class FinanceService {
     private final GlassRepository glassRepository;
     private final RevenueRecordRepository revenueRecordRepository;
-
     public FinanceService(GlassRepository glassRepository, RevenueRecordRepository revenueRecordRepository) {
         this.glassRepository = glassRepository;
         this.revenueRecordRepository = revenueRecordRepository;
@@ -46,40 +46,28 @@ public class FinanceService {
 
     // 3. перевірка запису на наявність і збереження запису
     // передача метода на контролер -> front
-
     @Transactional
     public void saveDailyRevenue() {
-        BigDecimal totalRevenue = glassRepository.findAll().stream()
-                .filter(glass -> glass.getDateOfSale() != null && glass.getDateOfSale().equals(LocalDate.now())) // Фільтруємо за сьогоднішньою датою записи
-                .map(glass -> glass.getSalePrice()
-                        .multiply(new BigDecimal(glass.getSoldQuantity())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        List<Glass> allGlasses = glassRepository.findAll();
+        for (Glass glass : allGlasses) {
+            if (glass.getSoldQuantity() > 0 && glass.getDateOfSale() != null && glass.getDateOfSale().equals(LocalDate.now())) {
+                BigDecimal revenue = glass.getSalePrice().multiply(new BigDecimal(glass.getSoldQuantity()));
 
-        RevenueRecord todayRevenue = revenueRecordRepository.findByDate(LocalDate.now());
-        if (todayRevenue == null) {
-            todayRevenue = new RevenueRecord(LocalDate.now(), BigDecimal.ZERO);
-            System.out.println("No record found for today's date.");
-        } else {
-            System.out.println("Record found: " + todayRevenue.getAmount());
+                RevenueRecord existingRecord = revenueRecordRepository.findByGlassAndDate(glass, LocalDate.now());
+                if (existingRecord == null) {
+                    existingRecord = new RevenueRecord(LocalDate.now(), revenue, glass);
+                    System.out.println("Creating new record for glass: " + glass.getModelName());
+                } else {
+                    existingRecord.setAmount(revenue);
+                    System.out.println("Updating record for glass: " + glass.getModelName() + " with new amount: " + revenue);
+                }
+                revenueRecordRepository.save(existingRecord);
+            }
         }
-
-
-        todayRevenue.setAmount(totalRevenue);
-        revenueRecordRepository.save(todayRevenue);
     }
-
-
 
     // 4. Отримати всі записи виручки за період
     public List<RevenueRecord> getRevenueRecords(LocalDate from, LocalDate to) {
         return revenueRecordRepository.findByDateBetween(from, to);
-    }
-
-    // 5. Порахувати загальну виручку за період (поки не юзаєм, але лишу це тут, вдруг пригодиться колись )
-    public BigDecimal calculateTotalRevenue(LocalDate from, LocalDate to) {
-        return getRevenueRecords(from, to)
-                .stream()
-                .map(RevenueRecord::getAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

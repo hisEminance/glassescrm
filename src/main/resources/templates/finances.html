@@ -1,65 +1,104 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>CRM</title>
+    <title>Фінансова статистика | CRM</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/finance-styles.css">
 </head>
-<body class="home-page">
+<body class="finance-dashboard">
 <div id="navbar-placeholder"></div>
 
-<div class="container main-content">
-    <div class="jumbotron">
-        <h1 class="display-4">Обіг грошей</h1>
-        <p class="lead">Моніторинг доходів та витрат у вашому бізнесі</p>
-        <hr class="my-4">
-        <p>Використовуйте цю сторінку для управління фінансами та аналізу доходів.</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/finances" role="button">Переглянути деталі</a>
-        </p>
+
+    <div class="dashboard-header">
+        <div class="container">
+            <h1 class="display-5 fw-bold">Фінансова статистика</h1>
+            <p>Аналітика доходів та витрат вашого бізнесу</p>
+        </div>
     </div>
 
-    <div class="row mt-4">
+
+
+    <div class="row g-4">
         <div class="col-md-4">
-            <div class="card text-white bg-success mb-3">
-                <div class="card-header">Чистий загальний дохід</div>
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${netIncome} + ' грн'">0 грн</h5>
+            <div class="stat-card income">
+                <div class="stat-icon">
+                    <i class="bi bi-wallet2"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Чистий дохід</h3>
+                    <p class="stat-value" th:text="${netIncome} + ' грн'">0 грн</p>
+                    <div class="stat-footer">
+                        <i class="bi bi-arrow-up-circle"></i>
+                        <span>Чистий прибуток</span>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="col-md-4">
-            <div class="card text-white bg-danger mb-3">
-                <div class="card-header">Витрати на закупівлю</div>
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${purchaseExpenses} + ' грн'">0 грн</h5>
+            <div class="stat-card expenses">
+                <div class="stat-icon">
+                    <i class="bi bi-cart-x"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Витрати</h3>
+                    <p class="stat-value" th:text="${purchaseExpenses} + ' грн'">0 грн</p>
+                    <div class="stat-footer">
+                        <i class="bi bi-bag"></i>
+                        <span>На закупівлі товару</span>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="col-md-4">
-            <div class="card text-white bg-primary mb-3">
-                <div class="card-header">Виручка за сьогодні</div>
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${dailyRevenue} + ' грн'">0 грн</h5>
+            <div class="stat-card daily">
+                <div class="stat-icon">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Сьогодні</h3>
+                    <p class="stat-value" th:text="${dailyRevenue} + ' грн'">0 грн</p>
+                    <div class="stat-footer">
+                        <i class="bi bi-clock"></i>
+                        <span>Денна виручка</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
+
+    <div class="row g-4 mt-2">
         <div class="col-md-6">
-            <div class="card text-white bg-info mb-3">
-                <div class="card-header">Виручка за цей місяць</div>
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${monthlyRevenue} + ' грн'">0 грн</h5>
+            <div class="stat-card monthly">
+                <div class="stat-icon">
+                    <i class="bi bi-calendar-minus"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Місячна виручка</h3>
+                    <p class="stat-value" th:text="${monthlyRevenue} + ' грн'">0 грн</p>
+                    <div class="stat-footer">
+                        <i class="bi bi-graph-up-arrow"></i>
+                        <span>За поточний місяць</span>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="col-md-6">
-            <div class="card text-white bg-warning mb-3">
-                <div class="card-header">Виручка за цей рік</div>
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${yearlyRevenue} + ' грн'">0 грн</h5>
+            <div class="stat-card yearly">
+                <div class="stat-icon">
+                    <i class="bi bi-calendar3"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Річна виручка</h3>
+                    <p class="stat-value" th:text="${yearlyRevenue} + ' грн'">0 грн</p>
+                    <div class="stat-footer">
+                        <i class="bi bi-piggy-bank"></i>
+                        <span>За поточний рік</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -74,9 +113,7 @@
         .then(html => {
             document.getElementById('navbar-placeholder').innerHTML = html;
         })
-        .catch(err => {
-            console.error('Помилка при завантаженні навбару:', err);
-        });
+        .catch(err => console.error('Помилка завантаження навбару:', err));
 </script>
 </body>
 </html>

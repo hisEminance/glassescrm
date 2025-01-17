@@ -1,0 +1,98 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Global styles */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #f0f2f5;
+    color: #111827;
+    line-height: 1.5;
+}
+
+/* Common components styling */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.display-4 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.lead {
+    font-size: 1.125rem;
+    font-weight: 400;
+}
+
+/* Common card styles */
+.card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Common button styles */
+.btn {
+    font-weight: 500;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: #4f46e5;
+    border-color: #4f46e5;
+}
+
+.btn-primary:hover {
+    background: #4338ca;
+    border-color: #4338ca;
+}
+
+/* Common table styles */
+.table {
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.table th {
+    font-weight: 600;
+    background: #f8fafc;
+}
+
+/* Common form styles */
+.form-control {
+    border-radius: 0.5rem;
+    border: 1px solid #e5e7eb;
+    padding: 0.625rem 0.875rem;
+}
+
+.form-control:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+}
+
+/* Common utility classes */
+.text-muted {
+    color: #6b7280 !important;
+}
+
+.bg-gradient {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+}
+
