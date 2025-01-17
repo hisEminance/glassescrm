@@ -14,7 +14,6 @@ import java.util.List;
 @Repository
 public interface RevenueRecordRepository extends JpaRepository<RevenueRecord, Long> {
     List<RevenueRecord> findByDateBetween(LocalDate startDate, LocalDate endDate);
-    RevenueRecord findByDate(LocalDate date);
     RevenueRecord findByGlassAndDate(Glass glass, LocalDate date);
     @Query("SELECT SUM(r.amount) FROM RevenueRecord r WHERE r.date BETWEEN :startDate AND :endDate")
     BigDecimal sumRevenueBetweenDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);

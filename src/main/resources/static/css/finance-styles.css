@@ -3,7 +3,6 @@
     min-height: 100vh;
 }
 
-/* Оновлений стиль для header */
 .dashboard-header {
     background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
     padding: 2.5rem 0;
@@ -88,7 +87,6 @@
     gap: 0.5rem;
 }
 
-/* Кольорові схеми для карток */
 .income {
     background: linear-gradient(145deg, #ffffff, #f8fff9);
 }

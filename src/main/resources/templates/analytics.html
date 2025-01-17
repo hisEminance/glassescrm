@@ -17,19 +17,16 @@
         <hr class="my-4">
     </div>
 
-    <!-- Секція для місячного доходу -->
     <div class="chart-container">
         <h2 class="chart-title">Місячний дохід</h2>
         <canvas id="monthlyRevenueChart"></canvas>
     </div>
 
-    <!-- Секція для тенденцій продажів -->
     <div class="chart-container">
         <h2 class="chart-title">Тенденції продажів</h2>
         <canvas id="salesTrendsChart"></canvas>
     </div>
 
-    <!-- Секція для аналізу витрат -->
     <div class="chart-container">
         <h2 class="chart-title">Аналіз витрат</h2>
         <canvas id="expenseBreakdownChart"></canvas>
@@ -135,7 +132,6 @@
         console.warn("Sales Trends Data or Labels are empty.");
     }
 
-    // Аналіз витрат
     const expenseData = /*[[${expenseData}]]*/ [];
     const expenseCategories = /*[[${expenseCategories}]]*/ [];
     console.log("Expense Data:", expenseData);

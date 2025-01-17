@@ -12,27 +12,21 @@ public class Glass {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "model_name", nullable = false)
     private String modelName;
-
     @Column(name = "purchase_price", nullable = false)
-    private BigDecimal purchasePrice; // ціна закупки
-
+    private BigDecimal purchasePrice;
     @Column(name = "sale_price", nullable = false)
-    private BigDecimal salePrice; // ціна продажу
-
+    private BigDecimal salePrice;
     @Column(name = "stock_quantity", nullable = false)
-    private int stockQuantity; // кількість в наявності
-
+    private int stockQuantity;
     @Column(name = "sold_quantity", nullable = false)
-    private int soldQuantity; // кількість проданих окулярів
-
+    private int soldQuantity;
     @Column(name = "image_url")
-    private String imageUrl; // посилання на фото моделі
+    private String imageUrl;
 
     @Column(name = "markup_percentage")
-    private Double markupPercentage; // відсоток націнки
+    private Double markupPercentage;
     @Column(name = "ideal_stock")
     private Integer idealStock;
     @Column(name = "dateOfSale")

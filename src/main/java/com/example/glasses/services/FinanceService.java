@@ -27,15 +27,14 @@ public class FinanceService {
         return glassRepository.findAll()
                 .stream()
                 .map(glass -> {
-                    BigDecimal revenue = glass.getSalePrice().multiply(new BigDecimal(glass.getSoldQuantity())); // Дохід від продажу
-                    BigDecimal expenses = glass.getPurchasePrice().multiply(new BigDecimal(glass.getSoldQuantity())); // Витрати на закупівлю
-                    return revenue.subtract(expenses); // Чистий дохід для кожної моделі
+                    BigDecimal revenue = glass.getSalePrice().multiply(new BigDecimal(glass.getSoldQuantity()));
+                    BigDecimal expenses = glass.getPurchasePrice().multiply(new BigDecimal(glass.getSoldQuantity()));
+                    return revenue.subtract(expenses);
                 })
-                .reduce(BigDecimal.ZERO, BigDecimal::add); // Сумуємо чистий дохід для всіх моделей
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    // 2. Витрати на закупівлю (actually вже є на сторінці overall,
-    // але цей метод відрізняється тим, що збирає витрати протягом визначеного періоду чи шо)
+    // 2. expenses (actually it is on page overall but will be on other too)
     public BigDecimal calculatePurchaseExpenses() {
         return glassRepository.findAll()
                 .stream()
@@ -44,8 +43,7 @@ public class FinanceService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    // 3. перевірка запису на наявність і збереження запису
-    // передача метода на контролер -> front
+    // 3. checking record availability and savind record
     @Transactional
     public void saveDailyRevenue() {
         List<Glass> allGlasses = glassRepository.findAll();
@@ -66,7 +64,7 @@ public class FinanceService {
         }
     }
 
-    // 4. Отримати всі записи виручки за період
+    // 4. get all revenue records by input period
     public List<RevenueRecord> getRevenueRecords(LocalDate from, LocalDate to) {
         return revenueRecordRepository.findByDateBetween(from, to);
     }

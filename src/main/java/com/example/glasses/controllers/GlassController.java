@@ -44,6 +44,7 @@ public class GlassController {
 
     @PostMapping
     public Glass createGlass(@RequestBody Glass glass) {
+        //TODO
         //цю тєму точно треба винести кудась за СОЛІД-ом, супер впдлу і горять сроки, потім всьо рефакторну
         if (glass.getDateOfSale() == null) {
             glass.setDateOfSale(LocalDate.now());
@@ -93,7 +94,8 @@ public class GlassController {
 
             int soldAmount = newSoldQuantity - oldSoldQuantity;
 
-            // Чекінг чи можливо продати вказану кількість
+            //todo
+            // checking if there is possibility to sell smth (working badely)
             if (soldAmount < 0 || glass.getStockQuantity() < soldAmount) {
                 return ResponseEntity.badRequest()
                         .body("Недостатньо товарів на складі або некоректна кількість проданих одиниць.");

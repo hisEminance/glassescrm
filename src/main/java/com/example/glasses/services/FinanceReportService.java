@@ -26,7 +26,7 @@ public class FinanceReportService {
                 LocalDate.now().minusMonths(12), LocalDate.now());
         Map<String, BigDecimal> monthlyRevenue = revenueRecords.stream()
                 .collect(Collectors.groupingBy(
-                        record -> record.getDate().getMonth().toString(), // Групування за місяцем
+                        record -> record.getDate().getMonth().toString(), // group by month
                         Collectors.reducing(BigDecimal.ZERO, RevenueRecord::getAmount, BigDecimal::add)
                 ));
 
@@ -49,8 +49,8 @@ public class FinanceReportService {
                 ));
 
         return revenueByDate.entrySet().stream()
-                .filter(entry -> entry.getValue().compareTo(BigDecimal.ZERO) > 0)  // Пропускаємо дати з 0
-                .sorted(Map.Entry.comparingByKey())  // Сортуємо за датою
+                .filter(entry -> entry.getValue().compareTo(BigDecimal.ZERO) > 0)
+                .sorted(Map.Entry.comparingByKey())
                 .map(entry -> entry.getValue().intValue())
                 .collect(Collectors.toList());
     }
