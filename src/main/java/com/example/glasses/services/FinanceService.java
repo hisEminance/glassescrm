@@ -48,18 +48,22 @@ public class FinanceService {
     public void saveDailyRevenue() {
         List<Glass> allGlasses = glassRepository.findAll();
         for (Glass glass : allGlasses) {
-            if (glass.getSoldQuantity() > 0 && glass.getDateOfSale() != null && glass.getDateOfSale().equals(LocalDate.now())) {
-                BigDecimal revenue = glass.getSalePrice().multiply(new BigDecimal(glass.getSoldQuantity()));
+            if (glass.getSoldQuantity() > glass.getPreviousSoldQuantity()) {
+                int newlySold = glass.getSoldQuantity() - glass.getPreviousSoldQuantity();
+                BigDecimal revenue = glass.getSalePrice().multiply(new BigDecimal(newlySold));
 
                 RevenueRecord existingRecord = revenueRecordRepository.findByGlassAndDate(glass, LocalDate.now());
                 if (existingRecord == null) {
                     existingRecord = new RevenueRecord(LocalDate.now(), revenue, glass);
                     System.out.println("Creating new record for glass: " + glass.getModelName());
                 } else {
-                    existingRecord.setAmount(revenue);
-                    System.out.println("Updating record for glass: " + glass.getModelName() + " with new amount: " + revenue);
+                    existingRecord.setAmount(existingRecord.getAmount().add(revenue));
+                    System.out.println("Updating record for glass: " + glass.getModelName() + " with updated amount: " + existingRecord.getAmount());
                 }
                 revenueRecordRepository.save(existingRecord);
+
+                glass.setPreviousSoldQuantity(glass.getSoldQuantity());
+                glassRepository.save(glass);
             }
         }
     }

@@ -25,18 +25,17 @@ public class GlassDto {
         this.replenishmentCost = replenishmentCost;
         this.restockingCost = restockingCost;
         this.idealStock = idealStock;
+
     }
     public int getOldSoldQuantity() {
         return oldSoldQuantity;
     }
-
     public void setOldSoldQuantity(int oldSoldQuantity) {
         this.oldSoldQuantity = oldSoldQuantity;
     }
     public Integer getIdealStock() {
         return idealStock;
     }
-
     public void setIdealStock(Integer idealStock) {
         this.idealStock = idealStock;
     }

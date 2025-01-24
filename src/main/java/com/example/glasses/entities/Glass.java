@@ -1,6 +1,7 @@
 package com.example.glasses.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -8,7 +9,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "glasses")
 public class Glass {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,12 +31,14 @@ public class Glass {
     private Integer idealStock;
     @Column(name = "dateOfSale")
     private LocalDate dateOfSale;
-
+    @JsonIgnore
+    @Column(name = "previous_sold_quantity", nullable = false)
+    private Integer previousSoldQuantity = 0;
 
     public Glass() {
     }
 
-    public Glass(String modelName, BigDecimal purchasePrice, BigDecimal salePrice, int stockQuantity, int soldQuantity, String imageUrl, Double markupPercentage, Integer idealStock, LocalDate dateOfSale) {
+    public Glass(String modelName, BigDecimal purchasePrice, BigDecimal salePrice, int stockQuantity, int soldQuantity, String imageUrl, Double markupPercentage, Integer idealStock, LocalDate dateOfSale, Integer previousSoldQuantity) {
         this.modelName = modelName;
         this.purchasePrice = purchasePrice;
         this.salePrice = salePrice;
@@ -46,6 +48,7 @@ public class Glass {
         this.markupPercentage = markupPercentage;
         this.idealStock = (idealStock != null) ? idealStock : 0;
         this.dateOfSale = dateOfSale;
+        this.previousSoldQuantity = (previousSoldQuantity != null) ? previousSoldQuantity: 0;
     }
 
 
@@ -134,5 +137,12 @@ public class Glass {
 
     public void setDateOfSale(LocalDate dateOfSale) {
         this.dateOfSale = dateOfSale;
+    }
+    public int getPreviousSoldQuantity() {
+        return previousSoldQuantity != null ? previousSoldQuantity : 0;
+    }
+
+    public void setPreviousSoldQuantity(int previousSoldQuantity) {
+        this.previousSoldQuantity = previousSoldQuantity;
     }
 }

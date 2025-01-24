@@ -102,8 +102,8 @@ public class GlassController {
             }
             glass.setSoldQuantity(newSoldQuantity);
             glass.setStockQuantity(glass.getStockQuantity() - soldAmount);
-            financeService.saveDailyRevenue();
             glassService.save(glass);
+            financeService.saveDailyRevenue();
             return ResponseEntity.ok(glass);
         } else {
             return ResponseEntity.notFound().build();
